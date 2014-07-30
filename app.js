@@ -15,7 +15,7 @@ app.get('/ranger_sensor', function (req, res) {
           sleep.sleep(2);
 
           gpio.write(TRIG, 1, function(){
-            sleep.sleep(0.00001);
+            sleep.usleep(100);
             gpio.write(TRIG, 0, function(){
               gpio.read(ECHO, function(err, value){
 
