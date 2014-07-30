@@ -24,7 +24,7 @@ app.get('/ranger_sensor', function (req, res) {
             gpio.write(TRIG, 0, function(err){
               if(err) throw err;
               var pathToECHO = '/sys/devices/virtual/gpio/gpio24/value';
-              console.log(fs.readFileSync(pathToECHO));
+              console.log(fs.readFileSync(pathToECHO, {encoding: 'utf8'}));
               while(fs.readFileSync(pathToECHO) == '0' ){
                 start = Date.now();
               }
