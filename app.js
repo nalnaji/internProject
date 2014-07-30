@@ -10,7 +10,7 @@ app.get('/ranger_sensor', function (req, res) {
     PythonShell.run('measure.py', function (err, results) {
       if(err) throw err;
       
-      res.send(results);
+      res.send(results[0]);
     });
 });
 
