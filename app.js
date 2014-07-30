@@ -22,7 +22,7 @@ app.get('/ranger_sensor', function (req, res) {
 
           gpio.write(TRIG, 1, function(err){
             if(err) throw err;
-            sleep.usleep(100);
+            sleep.usleep(1000);
             gpio.write(TRIG, 0, function(err){
               if(err) throw err;
               var pathToECHO = '/sys/devices/virtual/gpio/gpio24/value';
