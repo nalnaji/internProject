@@ -9,14 +9,19 @@ app.get('/ranger_sensor', function (req, res) {
     var ECHO = 18;
     var start;
     var end ;
-    gpio.setDirection(TRIG, 'out', function(){
-      gpio.setDirection(ECHO, 'in', function(){
-        gpio.write(TRIG, 0, function(){
+    gpio.setDirection(TRIG, 'out', function(err){
+      if(err) throw err;
+      gpio.setDirection(ECHO, 'in', function(err){
+        if(err) throw err;
+        gpio.write(TRIG, 0, function(err){
+          if(err) throw err;
           sleep.sleep(2);
 
-          gpio.write(TRIG, 1, function(){
+          gpio.write(TRIG, 1, function(err){
+            if(err) throw err;
             sleep.usleep(100);
-            gpio.write(TRIG, 0, function(){
+            gpio.write(TRIG, 0, function(err){
+              if(err) throw err;
               gpio.read(ECHO, function(err, value){
                 if(err) throw err;
                 console.log(value);
