@@ -30,10 +30,12 @@ app.get('/ranger_sensor', function (req, res) {
               while(fs.readFileSync(pathToECHO, {encoding: 'utf8'}).charAt(0) == '0' ){
                 start = Date.now();
               }
+              console.log('Exited first while: ' + start);
               //console.log(fs.readFileSync(pathToECHO, {encoding: 'utf8'}));
               while(fs.readFileSync(pathToECHO, {encoding: 'utf8'}).charAt(0) == '1'){
                 end = Date.now();
               }
+              console.log('Exited second while: '+ end);
               console.log(start +'');
               console.log(end +'');
               var duration = end - start;
