@@ -5,8 +5,8 @@ var sleep = require('sleep');
 app.listen(8080);
 
 app.get('/ranger_sensor', function (req, res) {
-    var TRIG = 23;
-    var ECHO = 24;
+    var TRIG = 16;
+    var ECHO = 18;
     var start;
     var end ;
     gpio.setDirection(TRIG, 'out', function(){
