@@ -68,14 +68,18 @@ app.get('/togglelight', function (req, res) {
       gpio.write(LIGHT, 1, function(err){
         if(err) throw err;    
         console.log('Turned light on');
-        gpio.close(LIGHT);          
+        gpio.close(LIGHT, function(){
+          res.send(null);
+        });          
       });
     }
     else{
       gpio.write(LIGHT, 0, function(err){
         if(err) throw err;      
         console.log('Turned light off');  
-        gpio.close(LIGHT);      
+        gpio.close(LIGHT, function(){
+          res.send(null);
+        });        
       });
     }
 
