@@ -57,12 +57,12 @@ app.get('/ranger_sensor', function (req, res) {
 });
 
 app.get('/togglelight', function (req, res) {
-  var LIGHT = XXX;
+  var LIGHT = parseInt(req.query.pin);
 
   gpio.open(LIGHT, 'out', function(err) {
     if(err) throw err;
 
-    var pathToLIGHT = '/sys/devices/virtual/gpio/XXX/value';
+    var pathToLIGHT = '/sys/devices/virtual/gpio/gpio3/value';
     var status = fs.readFileSync(pathToLIGHT, {encoding: 'utf8'}).charAt(0);
     if( status == '0'){
       gpio.write(LIGHT, 1, function(err){
