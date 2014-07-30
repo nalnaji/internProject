@@ -30,7 +30,10 @@ app.get('/ranger_sensor', function (req, res) {
               while(fs.readFileSync(pathToECHO) == '1'){
                 end = Date.now();
               }
+              console.log(start +'');
+              console.log(end +'');
               var duration = end - start;
+
               var distance = Math.round(duration * 17150);
 
               res.send('DISTANCE: ' + distance);
