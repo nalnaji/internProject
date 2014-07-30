@@ -9,8 +9,12 @@ app.listen(8080);
 app.get('/ranger_sensor', function (req, res) {
     PythonShell.run('measure.py', function (err, results) {
       if(err) throw err;
-      
-      res.send(results[0]);
+      var result = {
+        distanceInCM: parseFloat(results[0]),
+        distanceInInches: (parseFloat(results[0]) * 0.393701),
+        distanceInMeters: (parseFloat(results[0]) / 100)
+      };
+      res.send(result);
     });
 });
 
