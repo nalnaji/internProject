@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var gpio = require("pi-gpio");
 var sleep = require('sleep');
+var fs = require('fs');
 app.listen(8080);
 
 app.get('/ranger_sensor', function (req, res) {
@@ -22,22 +23,17 @@ app.get('/ranger_sensor', function (req, res) {
             sleep.usleep(100);
             gpio.write(TRIG, 0, function(err){
               if(err) throw err;
-              gpio.read(ECHO, function(err, value){
-                if(err) throw err;
-                console.log(value);
-                while(value == 0){
-                  start = Date.now();
-                }
+              var pathToECHO = '/sys/devices/virtual/gpio/gpio24/value';
+              while(fs.readFileSync(pathToECHO) == '0'){
+                start = Date.now();
+              }
+              while(fs.readFileSync(pathToECHO) == '1'){
+                end = Date.now();
+              }
+              var duration = end.getTime() - start.getTime();
+              var distance = Math.round(duration * 17150);
 
-                while(value == 1){
-                  end = Date.now();
-                }
-                var duration = end.getTime() - start.getTime();
-                var distance = Math.round(duration * 17150);
-
-                res.send('DISTANCE: ' + distance);
-
-              });
+              res.send('DISTANCE: ' + distance);
             });
           });
         });
