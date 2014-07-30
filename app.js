@@ -17,6 +17,7 @@ app.get('/ranger_sensor', function (req, res) {
         if(err) throw err;
         gpio.write(TRIG, 0, function(err){
           if(err) throw err;
+          console.log("Waiting For Sensor To Settle");
           sleep.sleep(2);
 
           gpio.write(TRIG, 1, function(err){
@@ -55,7 +56,31 @@ app.get('/ranger_sensor', function (req, res) {
 
 });
 
+app.get('/togglelight', function (req, res) {
+  var LIGHT = XXX;
 
+  gpio.open(LIGHT, 'out', function(err) {
+    if(err) throw err;
+
+    var pathToLIGHT = '/sys/devices/virtual/gpio/XXX/value';
+    var status = fs.readFileSync(pathToLIGHT, {encoding: 'utf8'}).charAt(0);
+    if( status == '0'){
+      gpio.write(LIGHT, 1, function(err){
+        if(err) throw err;    
+        console.log('Turned light on');
+        gpio.close(LIGHT);          
+      });
+    }
+    else{
+      gpio.write(LIGHT, 0, function(err){
+        if(err) throw err;      
+        console.log('Turned light off');  
+        gpio.close(LIGHT);      
+      });
+    }
+
+  });
+});
 
 
 
