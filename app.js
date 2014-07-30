@@ -18,6 +18,7 @@ app.get('/ranger_sensor', function (req, res) {
             sleep.usleep(100);
             gpio.write(TRIG, 0, function(){
               gpio.read(ECHO, function(err, value){
+                if(err) throw err;
                 console.log(value);
                 while(value == 0){
                   start = Date.now();
