@@ -39,7 +39,11 @@ app.get('/ranger_sensor', function (req, res) {
 
               var distance = Math.round(duration * 17150);
 
-              res.send('DISTANCE: ' + distance);
+              gpio.setDirection(TRIG, 'in', function(err){
+                gpio.setDirection(ECHO, 'in', function(err){
+                  res.send('DISTANCE: ' + distance);
+                });
+              });
             });
           });
         });
