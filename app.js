@@ -7,17 +7,23 @@ var PythonShell = require('python-shell');
 app.listen(8080);
 
 app.get('/ranger_sensor', function (req, res) {
-    PythonShell.run('measure.py', function (err, results) {
-      if(err) throw err;
-      var result = {
-        distanceInCM: parseFloat(results[0]),
-        distanceInInches: (parseFloat(results[0]) * 0.393701),
-        distanceInMeters: (parseFloat(results[0]) / 100)
-      };
-      res.send(result);
-    });
+  PythonShell.run('measure.py', function (err, results) {
+    if(err) throw err;
+    var result = {
+      distanceInCM: parseFloat(results[0]),
+      distanceInInches: (parseFloat(results[0]) * 0.393701),
+      distanceInMeters: (parseFloat(results[0]) / 100)
+    };
+    res.send(result);
+  });
 });
+app.get('/waitForMotion', function (req, res) {
+  PythonShell.run('waitForMotion.py', function (err, results) {
+    if(err) throw err;
+    res.send('MOTION DETECTED');
+  });
 
+});
 app.get('/togglelight', function (req, res) {
   var LIGHT = parseInt(req.query.pin);
 
