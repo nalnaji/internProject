@@ -10,9 +10,10 @@ app.get('/ranger_sensor', function (req, res) {
     var ECHO = 18;
     var start;
     var end ;
-    gpio.setDirection(TRIG, 'out', function(err){
+
+    gpio.open(TRIG, 'out', function(err) {
       if(err) throw err;
-      gpio.setDirection(ECHO, 'in', function(err){
+      gpio.open(ECHO, 'in', function(err) {
         if(err) throw err;
         gpio.write(TRIG, 0, function(err){
           if(err) throw err;
@@ -39,8 +40,8 @@ app.get('/ranger_sensor', function (req, res) {
 
               var distance = Math.round(duration * 17150);
 
-              gpio.setDirection(TRIG, 'in', function(err){
-                gpio.setDirection(ECHO, 'in', function(err){
+              gpio.close(TRIG, function(err){
+                gpio.close(ECHO, function(err){
                   res.send('DISTANCE: ' + distance);
                 });
               });
