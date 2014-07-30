@@ -62,7 +62,7 @@ app.get('/togglelight', function (req, res) {
   gpio.open(LIGHT, 'out', function(err) {
     if(err) throw err;
 
-    var pathToLIGHT = '/sys/devices/virtual/gpio/gpio3/value';
+    var pathToLIGHT = '/sys/devices/virtual/gpio/gpio2/value';
     var status = fs.readFileSync(pathToLIGHT, {encoding: 'utf8'}).charAt(0);
     if( status == '0'){
       gpio.write(LIGHT, 1, function(err){
