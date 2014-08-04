@@ -14,3 +14,6 @@ print 'MOTION FOUND'
 GPIO.cleanup()
 
 
+while !wasThereMotionInTheLast5Seconds(){
+	sleep(2 seconds);
+}
