@@ -17,3 +17,11 @@ while True:
 	time.sleep(0.2)
 
 GPIO.cleanup()
+
+<<<<<<< HEAD
+=======
+
+while !wasThereMotionInTheLast5Seconds(){
+	sleep(2 seconds);
+}
+>>>>>>> 0069eda551ad6d7ac803048e0a3434239afb9c0c
