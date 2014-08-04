@@ -14,6 +14,8 @@ while True:
 		conn.request("GET", "/motion_detected")
 		r1 = conn.getresponse()
 		time.sleep(1)
+	else:
+		print 'MOTION NOT FOUND'
 	time.sleep(0.2)
 
 GPIO.cleanup()
