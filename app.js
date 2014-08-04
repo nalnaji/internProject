@@ -3,6 +3,7 @@ var app = express();
 var gpio = require("pi-gpio");
 var sleep = require('sleep');
 var fs = require('fs');
+var exec = require('child_process').exec;
 var PythonShell = require('python-shell');
 app.listen(8080);
 
@@ -17,12 +18,16 @@ app.get('/ranger_sensor', function (req, res) {
     res.send(result);
   });
 });
-app.get('/waitForMotion', function (req, res) {
-  PythonShell.run('waitForMotion.py', function (err, results) {
-    if(err) throw err;
-    res.send('MOTION DETECTED');
-  });
+app.get('/setupMotionHook', function (req, res) {
+  var address = req.query.address;
 
+  var options = {
+    args: ['address']
+  };
+
+  exec("nohup python python/waitForMotion.py " +address+" &", function (error, stdout, stderr){
+    res.send('SET UP AT PORT: ' +  address);
+  });
 });
 app.get('/togglelight', function (req, res) {
   var LIGHT = parseInt(req.query.pin);
