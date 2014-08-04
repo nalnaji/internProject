@@ -10,7 +10,7 @@ GPIO.setup(INF,GPIO.IN)
 while True:
 	if GPIO.input(INF)==1:
 		print 'MOTION FOUND'
-		conn = httplib.HTTPConnection("10.250.1.60:8888")
+		conn = httplib.HTTPConnection("10.250.1.60:8880")
 		conn.request("GET", "/motion_detected")
 		r1 = conn.getresponse()
 		time.sleep(1)
